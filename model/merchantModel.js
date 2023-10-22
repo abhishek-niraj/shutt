@@ -33,4 +33,33 @@ Merchant.login = (merchant) => {
     });
   });
 };
+/************************** Get Merchants **************************************** */
+Merchant.getMerchants = () => {
+  return new Promise((resolve, reject) => {
+    dbConn.query(merchantQuery.getMerchants, (err, res) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(res);
+      }
+    });
+  });
+};
+/************************** update Merchant **************************************** */
+Merchant.updateMerchant = (merchant) => {
+  return new Promise((resolve, reject) => {
+    dbConn.query(
+      merchantQuery.updateMerchant,
+      [merchant.qrId, merchant.gymId, merchant.merchantId],
+      (err, res) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(res);
+        }
+      }
+    );
+  });
+};
+
 module.exports = Merchant;

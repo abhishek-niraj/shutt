@@ -28,6 +28,8 @@ Best regards,
   qrCodeAlreadyAvailable: 'This qrCode is already registered',
   qrNumberUpdated: 'QrNumber updated successfully',
   qrCodeDeleted: 'QrCode deleted successfully',
+  gymAdd: 'Gym added successfully',
+  signup: 'Signup successfully',
 });
 
 module.exports = ResponseMessage;

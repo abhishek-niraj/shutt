@@ -11,4 +11,10 @@ router
 router
   .route('/login')
   .post(requiredFiled.loginMerchant, merchantController.login);
+router
+  .route('/get-all-merchant')
+  .post(authorization.checkAdmin, merchantController.getMerchants);
+router
+  .route('/update-merchant-qr')
+  .patch(authorization.checkAdmin, merchantController.updateMerchant);
 module.exports = router;

@@ -8,14 +8,17 @@ const adminRouter = require('./routes/adminRoutes');
 const subscriptionRouter = require('./routes/subscriptionPlanRoutes');
 const merchantRouter = require('./routes/merchantRoutes');
 const qrRouter = require('./routes/qrRoutes');
+const gymRouter = require('./routes/gymRoutes');
 dotenv.config({ path: './config.env' });
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use('/uploads', express.static('uploads'));
 app.use(cors());
 
 app.use('/api/v1/admin', adminRouter);
 app.use('/api/v1/subscription', subscriptionRouter);
 app.use('/api/v1/merchant', merchantRouter);
 app.use('/api/v1/qrCode', qrRouter);
+app.use('/api/v1/gym', gymRouter);
 module.exports = app;

@@ -13,6 +13,7 @@ const mailHelper = require('../utils/mailHelper');
 const MailEnum = require('../enum/mailEnum');
 const MailSubjectEnum = require('../enum/mailSubjectEnum');
 const requiredField = require('../required/merchantRequiredField');
+const QrCode = require('../model/qrModel');
 dotenv.config({ path: './config.env' });
 exports.addMerchant = (req, res) => {
   try {
@@ -127,6 +128,82 @@ exports.login = async (req, res) => {
         res,
         responseStatusCode.failedStatusCode,
         responseMessage.invalidEmailAndPassword
+      );
+    }
+  } catch (err) {
+    console.info(err);
+    apiResponse.apiResponseWithoutData(
+      req,
+      res,
+      responseStatusCode.failedStatusCode,
+      responseMessage.somethingWentWrong
+    );
+  }
+};
+/********************* Get Merchants ************************************ */
+exports.getMerchants = async (req, res) => {
+  try {
+    const merchants = await Merchant.getMerchants();
+    if (merchants.length) {
+      await Promise.all(
+        merchants.map(async (merchant) => {
+          if (merchant.qrId.length) {
+            console.log(merchant);
+
+            const qrNumber = await QrCode.getQrCode(merchant.qrId);
+            console.log(qrNumber);
+            if (qrNumber.length) {
+              console.log(qrNumber);
+              merchant.qrNumber = qrNumber[0]['qrNumber'];
+            } else {
+              merchant.qrNumber = '';
+            }
+          } else {
+            merchant.qrNumber = '';
+          }
+        })
+      );
+      apiResponse.apiResponseWithData(
+        req,
+        res,
+        responseStatusCode.successStatusCode,
+        merchants
+      );
+    } else {
+      apiResponse.apiResponseWithoutData(
+        req,
+        res,
+        responseStatusCode.failedStatusCode,
+        responseMessage.noData
+      );
+    }
+  } catch (err) {
+    console.info(err);
+    apiResponse.apiResponseWithoutData(
+      req,
+      res,
+      responseStatusCode.failedStatusCode,
+      responseMessage.somethingWentWrong
+    );
+  }
+};
+exports.updateMerchant = async (req, res) => {
+  try {
+    const merchant = req.body;
+    const isUpdate = await Merchant.updateMerchant(merchant);
+    if (isUpdate.affectedRows) {
+      apiResponse.apiResponseWithoutData(
+        req,
+        res,
+        responseStatusCode.successStatusCode,
+        responseMessage.qrNumberUpdated
+      );
+    } else {
+      apiResponse.apiResponseWithoutData(
+        req,
+        res,
+        responseStatusCode.failedStatusCode,
+        responseMessage.somethingWentWrong
       );
     }
   } catch (err) {
