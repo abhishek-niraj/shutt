@@ -21,6 +21,10 @@ exports.addGym = async (req, res) => {
       } else {
         const newGym = req.body;
         newGym.gymId = short.generate();
+        if (req.files['gymImage']) {
+          newGym.gymImage = req.files['gymImage'][0].path;
+        }
+
         const isGymAdd = await Gym.addGym(newGym);
         console.log(isGymAdd);
         if (isGymAdd.insertId) {
@@ -62,6 +66,36 @@ exports.getGyms = async (req, res) => {
     );
   } catch (err) {
     console.info(err);
+    apiResponse.apiResponseWithoutData(
+      req,
+      res,
+      responseStatusCode.failedStatusCode,
+      responseMessage.somethingWentWrong
+    );
+  }
+};
+
+/*********** Delete gym ********************** */
+exports.deleteGym = async (req, res) => {
+  try {
+    const gymId = req.body.gymId;
+    const isGymDeleted = await Gym.deleteGym(gymId);
+    if (isGymDeleted.affectedRows) {
+      apiResponse.apiResponseWithoutData(
+        req,
+        res,
+        responseStatusCode.successStatusCode,
+        responseMessage.gymDeleted
+      );
+    } else {
+      apiResponse.apiResponseWithoutData(
+        req,
+        res,
+        responseStatusCode.failedStatusCode,
+        responseMessage.somethingWentWrong
+      );
+    }
+  } catch (err) {
     apiResponse.apiResponseWithoutData(
       req,
       res,

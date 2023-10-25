@@ -30,6 +30,7 @@ Best regards,
   qrCodeDeleted: 'QrCode deleted successfully',
   gymAdd: 'Gym added successfully',
   signup: 'Signup successfully',
+  gymDeleted: 'Gym deleted successfully',
 });
 
 module.exports = ResponseMessage;

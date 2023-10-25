@@ -37,4 +37,16 @@ Gym.getGyms = () => {
     });
   });
 };
+/*************** Delete gym ****************************** */
+Gym.deleteGym = (gymId) => {
+  return new Promise((resolve, reject) => {
+    dbConn.query(gymQuery.deleteGym, gymId, (err, res) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(res);
+      }
+    });
+  });
+};
 module.exports = Gym;

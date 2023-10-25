@@ -17,5 +17,15 @@ Customer.signUp = (customer) => {
     });
   });
 };
-
+Customer.login = (customerEmail) => {
+  return new Promise((resolve, reject) => {
+    dbConn.query(customerQuery.login, customerEmail, (err, res) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(res);
+      }
+    });
+  });
+};
 module.exports = Customer;
