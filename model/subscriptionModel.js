@@ -33,4 +33,19 @@ SubscriptionPlan.getAllSubscriptionPlan = () => {
     });
   });
 };
+SubscriptionPlan.getSubscriptionById = (subscriptionId) => {
+  return new Promise((resolve, reject) => {
+    dbConn.query(
+      subscriptionPlanQuery.getSubscriptionById,
+      subscriptionId,
+      (err, res) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(res);
+        }
+      }
+    );
+  });
+};
 module.exports = SubscriptionPlan;

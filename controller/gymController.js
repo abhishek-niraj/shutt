@@ -26,7 +26,6 @@ exports.addGym = async (req, res) => {
         }
 
         const isGymAdd = await Gym.addGym(newGym);
-        console.log(isGymAdd);
         if (isGymAdd.insertId) {
           apiResponse.apiResponseWithoutData(
             req,

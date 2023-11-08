@@ -61,5 +61,17 @@ Merchant.updateMerchant = (merchant) => {
     );
   });
 };
+/************************** Get Merchant ByQrId **************************************** */
 
+Merchant.getMerchantByQrId = (qrId) => {
+  return new Promise((resolve, reject) => {
+    dbConn.query(merchantQuery.getMerchantByQrId, qrId, (err, res) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(res);
+      }
+    });
+  });
+};
 module.exports = Merchant;

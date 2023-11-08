@@ -31,6 +31,10 @@ Best regards,
   gymAdd: 'Gym added successfully',
   signup: 'Signup successfully',
   gymDeleted: 'Gym deleted successfully',
+  checkIn: 'CheckIn successfully',
+  isCheckIn: 'You already checkIn on this date',
+  customerDetailUpdated: 'Details updated successfully',
+  invalidPrice: 'Input price is not matching with subscription price',
 });
 
 module.exports = ResponseMessage;

@@ -23,7 +23,21 @@ function currentTimeDate() {
     day: day,
   };
 }
+function expireTimeDate(addDays = 0) {
+  const now = new Date();
+  const currentDate = new Date(now);
+  currentDate.setDate(now.getDate() + addDays);
+  const year = currentDate.getFullYear();
+  const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+  const day = ('0' + currentDate.getDate()).slice(-2);
+  const getDateMonth = `${day}-${month}`;
+  const expiryDate = `${year}-${month}-${day}`;
 
+  return {
+    expiryDate: expiryDate,
+  };
+}
 module.exports = {
   currentTimeDate,
+  expireTimeDate,
 };

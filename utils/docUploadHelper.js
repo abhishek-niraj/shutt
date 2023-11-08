@@ -13,4 +13,5 @@ const storage = multer.diskStorage({
 exports.upload = multer({ storage: storage }).fields([
   { name: 'merchant_profile', maxCount: 1 },
   { name: 'gymImage', maxCount: 1 },
+  { name: 'profileImage', maxCount: 1 },
 ]);

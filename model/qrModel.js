@@ -46,7 +46,7 @@ QrCode.updateQrCode = (qrCode) => {
   return new Promise((resolve, reject) => {
     dbConn.query(
       qrCodeQuery.updateQrNumber,
-      [qrCode.qrNumber, qrCode.updated_at, qrCode.qrId],
+      [qrCode.qrNumber, qrCode.updated_at, qrCode.customerId, qrCode.qrId],
       (err, res) => {
         if (err) {
           reject(err);

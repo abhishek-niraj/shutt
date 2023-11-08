@@ -28,4 +28,37 @@ Customer.login = (customerEmail) => {
     });
   });
 };
+
+/****************** Update customer Details ***************************************/
+Customer.updateCustomerDetails = (customer) => {
+  return new Promise((resolve, reject) => {
+    dbConn.query(
+      customerQuery.updateCustomerDetails,
+      [customer.profileImage, customer.customerId],
+      (err, res) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(res);
+        }
+      }
+    );
+  });
+};
+/**************** Update customer Subscription Plan ********************** */
+Customer.updateCustomerSubscriptionPlan = (customerId, subscriptionId) => {
+  return new Promise((resolve, reject) => {
+    dbConn.query(
+      customerQuery.updateCustomerSubscriptionPlan,
+      [subscriptionId, customerId],
+      (err, res) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(res);
+        }
+      }
+    );
+  });
+};
 module.exports = Customer;

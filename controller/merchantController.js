@@ -191,6 +191,13 @@ exports.updateMerchant = async (req, res) => {
   try {
     const merchant = req.body;
     const isUpdate = await Merchant.updateMerchant(merchant);
+    const qrCode = {
+      qrNumber: null,
+      updated_at: null,
+      customerId: merchant.merchantId,
+      qrId: merchant.qrId,
+    };
+    await QrCode.updateQrCode(qrCode);
     if (isUpdate.affectedRows) {
       apiResponse.apiResponseWithoutData(
         req,
